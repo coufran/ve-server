@@ -24,7 +24,7 @@ public class AuthController {
     }
 
     @RequestMapping("/isLogin")
-    public Result isLogin(@RequestHeader("Token") String token) {
+    public Result isLogin(@RequestHeader(value = "Token", required = false) String token) {
         boolean isLogin = authService.isLogin(token);
         return Result.ok(isLogin);
     }

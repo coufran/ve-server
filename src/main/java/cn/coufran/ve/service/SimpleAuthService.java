@@ -41,6 +41,9 @@ public class SimpleAuthService implements AuthService {
 
     @Override
     public boolean isLogin(String tokenString) {
+        if(tokenString == null) {
+            return false;
+        }
         Token token = tokenRepository.selectById(tokenString);
         if(token == null) {
             return false;
