@@ -13,13 +13,21 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.UUID;
 
+/**
+ * 权限组件基础实现
+ * @author coufran
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 @Service
 public class SimpleAuthService implements AuthService {
-
+    /** 用户数据仓库 */
     @Resource
     private UserRepository userRepository;
+    /** Token数据仓库 */
     @Resource
     private TokenRepository tokenRepository;
+    /** 加解密组件 */
     @Resource
     private SecretService secretService;
 
@@ -31,7 +39,7 @@ public class SimpleAuthService implements AuthService {
         if(user == null) {
             throw new ServiceException("用户名或密码错误");
         }
-        // 生成token，保存
+        // 生成token（随机UUID），保存
         String tokenString = UUID.randomUUID().toString().replaceAll("-", "");
         long expire = System.currentTimeMillis() + 1000 * 60 * 30; // 有效期30min
         Token token = new Token(tokenString, user.getId(), expire);
@@ -44,10 +52,12 @@ public class SimpleAuthService implements AuthService {
         if(tokenString == null) {
             return false;
         }
+        // 存在判定
         Token token = tokenRepository.selectById(tokenString);
         if(token == null) {
             return false;
         }
+        // 过期判定
         long expire = token.getExpire();
         if(System.currentTimeMillis() > expire) {
             return false;
@@ -55,6 +65,9 @@ public class SimpleAuthService implements AuthService {
         return true;
     }
 
+    /**
+     * 定时任务，每分钟执行一次，清除已过期的Token
+     */
     @Scheduled(cron = "0 * * * * ?")
     public void clearToken() {
         LambdaUpdateWrapper<Token> wrapper = new UpdateWrapper<Token>().lambda()

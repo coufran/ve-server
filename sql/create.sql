@@ -1,3 +1,4 @@
+/** 用户 */
 drop table if exists user;
 
 create table user(
@@ -6,6 +7,7 @@ create table user(
   password char(32) not null comment '密码'
 );
 
+/** Token 权限 */
 drop table if exists token;
 
 create table token(
