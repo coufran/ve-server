@@ -1,6 +1,5 @@
 package cn.coufran.ve.api;
 
-import cn.coufran.springboot.starter.api.Result;
 import cn.coufran.ve.interceptor.Public;
 import cn.coufran.ve.model.User;
 import cn.coufran.ve.service.AuthService;
@@ -33,11 +32,8 @@ public class AuthController {
      */
     @PostMapping("/login")
     @Public
-    public Result login(@RequestBody User user) {
-        String token = authService.login(user);
-        Result result = Result.ok();
-        result.setData(token);
-        return result;
+    public String login(@RequestBody User user) {
+        return authService.login(user);
     }
 
     /**
@@ -47,9 +43,8 @@ public class AuthController {
      */
     @RequestMapping("/isLogin")
     @Public
-    public Result isLogin(@RequestHeader(value = "Token", required = false) String token) {
-        boolean isLogin = authService.isLogin(token);
-        return Result.ok(isLogin);
+    public Boolean isLogin(@RequestHeader(value = "Token", required = false) String token) {
+        return authService.isLogin(token);
     }
 
 }
