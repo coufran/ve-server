@@ -1,0 +1,1 @@
+# auth.isLogin（登录校验）
