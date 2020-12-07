@@ -1,5 +1,6 @@
 package cn.coufran.ve.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.util.Date;
@@ -23,6 +24,7 @@ public class Record {
     /** 联合ID（用于关联其他记录） */
     private Integer groupId;
     /** 时间 */
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date time;
     /** 备注 */
     private String remark;

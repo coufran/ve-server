@@ -10,8 +10,11 @@ import lombok.Data;
  */
 @Data
 public class Title {
+    /** 科目ID */
     private Integer id;
+    /** 科目名称 */
     private String name;
+    /** 科目分类 */
     private Kind kind;
 
     /**

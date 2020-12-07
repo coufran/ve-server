@@ -1,8 +1,10 @@
 package cn.coufran.ve.api;
 
 import cn.coufran.ve.model.Record;
+import cn.coufran.ve.service.RecordService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +15,12 @@ import java.util.List;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/web/record")
+@CrossOrigin
 public class RecordController {
+
+    @Resource
+    private RecordService recordService;
 
     /**
      * 列举指定时间的收支记录
@@ -26,8 +32,7 @@ public class RecordController {
     public List<Record> list(
             @RequestParam(value = "startTime", required = false) Date startTime,
             @RequestParam(value = "endTime", required = false) Date endTime) {
-        //TODO
-        return null;
+        return recordService.list(startTime, endTime);
     }
 
     /**
