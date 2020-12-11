@@ -28,3 +28,22 @@ create table record(
   time datetime not null comment '时间',
   remark varchar(100) comment '备注'
 );
+
+/** 账户 */
+drop table if exists account;
+
+create table account(
+  id int primary key auto_increment comment 'ID',
+  name varchar(20) not null comment '名称',
+  amount int not null comment '余额',
+  title_id int not null comment '所属科目'
+);
+
+/** 科目 */
+drop table if exists title;
+
+create table title(
+  id int primary key auto_increment comment 'ID',
+  name varchar(20) not null comment '名称',
+  kind enum('ASSETS', 'LIABILITY', 'PROFIT', 'LOSS') not null comment '分类'
+);

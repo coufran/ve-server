@@ -14,8 +14,8 @@ public class Account {
     private Integer id;
     /** 名称 */
     private String name;
-    /** 初始资金 */
-    private Integer initAmount;
+    /** 余额 */
+    private Integer amount;
     /** 所属科目（分类） */
     private Integer titleId;
 }
