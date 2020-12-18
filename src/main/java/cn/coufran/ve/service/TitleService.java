@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TitleService {
     List<Title> list();
+
+    Title getById(Integer id);
 }

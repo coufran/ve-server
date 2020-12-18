@@ -17,4 +17,9 @@ public class SimpleAccountService implements AccountService {
     public List<Account> list() {
         return accountRepository.selectList(new QueryWrapper<>());
     }
+
+    @Override
+    public Account getById(Integer id) {
+        return accountRepository.selectById(id);
+    }
 }

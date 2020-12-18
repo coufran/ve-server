@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AccountService {
     List<Account> list();
+
+    Account getById(Integer id);
 }

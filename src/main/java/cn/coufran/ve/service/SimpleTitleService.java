@@ -18,4 +18,9 @@ public class SimpleTitleService implements TitleService {
     public List<Title> list() {
         return titleRepository.selectList(new QueryWrapper<>());
     }
+
+    @Override
+    public Title getById(Integer id) {
+        return titleRepository.selectById(id);
+    }
 }
