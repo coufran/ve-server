@@ -65,6 +65,12 @@ public class SimpleAuthService implements AuthService {
         return true;
     }
 
+    @Override
+    public boolean logout(String token) {
+        tokenRepository.deleteById(token);
+        return true;
+    }
+
     /**
      * 定时任务，每分钟执行一次，清除已过期的Token
      */

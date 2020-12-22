@@ -47,4 +47,14 @@ public class AuthController {
         return authService.isLogin(token);
     }
 
+    /**
+     * 登出
+     * @param token token
+     */
+    @PostMapping("/logout")
+    public Boolean logout(@RequestHeader("Token") String token) {
+        return authService.logout(token);
+    }
+
+
 }

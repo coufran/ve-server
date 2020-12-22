@@ -24,4 +24,11 @@ public interface AuthService {
      * @return token有效返回true，否则返回false
      */
     boolean isLogin(String token);
+
+    /**
+     * 登出
+     * @param token token
+     * @return 登出是否成功
+     */
+    boolean logout(String token);
 }
