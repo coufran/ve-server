@@ -2,6 +2,7 @@ package cn.coufran.ve.api;
 
 import cn.coufran.ve.model.Title;
 import cn.coufran.ve.service.TitleService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/web/title")
+@CrossOrigin
 public class TitleController {
 
     @Resource
