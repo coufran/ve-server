@@ -19,4 +19,6 @@ public interface RecordService {
      * @return 符合条件的收支记录
      */
     List<Record> list(Date startTime, Date endTime);
+
+    void add(Record record);
 }

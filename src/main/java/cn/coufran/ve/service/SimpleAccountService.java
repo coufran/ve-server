@@ -22,4 +22,9 @@ public class SimpleAccountService implements AccountService {
     public Account getById(Integer id) {
         return accountRepository.selectById(id);
     }
+
+    @Override
+    public void update(Account account) {
+        accountRepository.updateById(account);
+    }
 }

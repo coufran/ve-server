@@ -1,8 +1,10 @@
 package cn.coufran.ve.service;
 
 import cn.coufran.ve.data.RecordRepository;
+import cn.coufran.ve.model.Account;
 import cn.coufran.ve.model.Record;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -20,6 +22,8 @@ import java.util.List;
  */
 @Service
 public class SimpleRecordService implements RecordService {
+    @Resource
+    private AccountService accountService;
     @Resource
     private RecordRepository recordRepository;
 
@@ -39,5 +43,28 @@ public class SimpleRecordService implements RecordService {
         }
         // 查询
         return recordRepository.listBetweenTime(startTime, endTime);
+    }
+
+    @Override
+    @Transactional
+    public void add(Record record) {
+        //TODO validate
+
+        // 业务
+        // 借方增加
+        Integer debitId = record.getDebitId();
+        Account debit = accountService.getById(debitId);
+        int debitAmountAfter = debit.getAmount() + record.getAmount();
+        debit.setAmount(debitAmountAfter);
+        // 贷方减少
+        Integer creditId = record.getCreditId();
+        Account credit = accountService.getById(creditId);
+        int creditAmountAfter = credit.getAmount() - record.getAmount();
+        credit.setAmount(creditAmountAfter);
+
+        // 更新数据
+        accountService.update(debit);
+        accountService.update(credit);
+        recordRepository.insert(record);
     }
 }

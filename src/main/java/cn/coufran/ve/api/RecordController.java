@@ -48,8 +48,9 @@ public class RecordController {
      * @param record 收支记录
      */
     @PostMapping("/add")
-    public void add(@RequestBody Record record) {
-        //TODO
+    public Boolean add(@RequestBody Record record) {
+        recordService.add(record);
+        return true;
     }
 
     /**

@@ -1,6 +1,8 @@
 package cn.coufran.ve.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.Date;
 @Data
 public class Record {
     /** ID */
+    @TableId(type = IdType.AUTO)
     private Integer id;
     /** 金额 */
     private Integer amount;
@@ -22,7 +25,7 @@ public class Record {
     /** 贷方 */
     private Integer creditId;
     /** 联合ID（用于关联其他记录） */
-    private Integer groupId;
+    private Integer groupId = 0;
     /** 时间 */
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date time;
