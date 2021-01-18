@@ -56,12 +56,12 @@ public class AuthInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Token");
         // 不包含请求头，拦截
         if(token == null) {
-            this.writeError(403, "未登录", response);
+            this.writeError(401, "未登录", response);
             return false;
         }
         // 请求头错误或过期，拦截
         if(!authService.isLogin(token)) {
-            this.writeError(403, "登录已过期，请重新登录", response);
+            this.writeError(401, "登录已过期，请重新登录", response);
             return false;
         }
 
