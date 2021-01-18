@@ -27,7 +27,8 @@ public interface RecordRepository extends BaseMapper<Record> {
     default List<Record> listBetweenTime(Date startTime, Date endTime) {
         endTime.setTime(endTime.getTime() + 24*60*60*1000 - 1); // endTime设置到当天23:59:59.999
         Wrapper<Record> wrapper = new QueryWrapper<Record>().lambda()
-                .between(Record::getTime, startTime, endTime);
+                .between(Record::getTime, startTime, endTime)
+                .orderByDesc(Record::getTime, Record::getId);
         return this.selectList(wrapper);
     }
 }
