@@ -1,0 +1,1 @@
+alter table token add column type enum('ACCESS', 'REFRESH') not null comment 'Token类型' after user_id;

@@ -36,6 +36,11 @@ public class AuthController {
         return authService.login(user);
     }
 
+    public String refresh(@RequestHeader("Token") String token) {
+        //TODO
+        return null;
+    }
+
     /**
      * 验证指定Token是否登录
      * @param token 指定Token，可为空，为空是返回未登录。Token参数不建议为空，会浪费服务器资源，建议在前端通过判空操作校验
