@@ -26,7 +26,7 @@ public class Token {
      */
     private Type type;
     /** 过期时间（时间戳） */
-    private long expire;
+    private Long expire;
 
     /**
      * 构造 ACCESS Token

@@ -13,6 +13,7 @@ drop table if exists token;
 create table token(
   token char(32) primary key comment 'Token值',
   user_id int not null comment '用户ID',
+  type enum('ACCESS', 'REFRESH') not null comment 'Token类型',
   expire long not null comment '过期时间'
 ) character set = utf8;
 

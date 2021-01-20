@@ -1,5 +1,6 @@
 package cn.coufran.ve.service;
 
+import cn.coufran.ve.api.vo.ClientTokenVo;
 import cn.coufran.ve.model.User;
 
 /**
@@ -16,7 +17,7 @@ public interface AuthService {
      * @return token
      * @throws cn.coufran.springboot.starter.api.exception.ServiceException 用户名或密码错误
      */
-    String login(User user);
+    ClientTokenVo login(User user);
 
     /**
      * 判定Token是否已登录，如果Token为空、错误或已过期，返回false
@@ -31,4 +32,11 @@ public interface AuthService {
      * @return 登出是否成功
      */
     boolean logout(String token);
+
+    /**
+     * 使用refreshToken交换accessToken，获取新的Token后，原来的refreshToken立刻失效，原来的accessToken在30s内依然有效
+     * @param refreshToken refreshToken
+     * @return 新的accessToken和refreshToken
+     */
+    ClientTokenVo refresh(String refreshToken);
 }
