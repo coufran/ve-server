@@ -3,6 +3,8 @@ package cn.coufran.ve.api.vo;
 import cn.coufran.ve.model.Token;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 客户端Token
  * @author coufran
@@ -10,7 +12,7 @@ import lombok.Data;
  * @since 1.1.0
  */
 @Data
-public class ClientTokenVo {
+public class ClientTokenVo implements Serializable {
     /** access token */
     private String accessToken;
     /** access token过期时间 */

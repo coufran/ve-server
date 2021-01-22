@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ import java.util.UUID;
 @Service
 public class SimpleAuthService implements AuthService {
     /** access token 有效时间 */
-    private static final int ACTIVE_MINUTES_ACCESS_TOKEN = 5;
+    private static final int ACTIVE_MINUTES_ACCESS_TOKEN = 1;
     /** refresh token 有效时间 */
     private static final int ACTIVE_MINUTES_REFRESH_TOKEN = 48;
 
@@ -58,10 +59,10 @@ public class SimpleAuthService implements AuthService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public ClientTokenVo refresh(String refreshToken) {
         // 验证 refreshToken
-        Token oldRefreshToken = tokenRepository.selectById(refreshToken);
+        Token oldRefreshToken = tokenRepository.selectByIdForUpdate(refreshToken);
         if (oldRefreshToken == null  // 找不到token
                 || oldRefreshToken.getType() != Token.Type.REFRESH // token 类型错误
                 || oldRefreshToken.getExpire() < System.currentTimeMillis()) { // token 已过期
@@ -75,7 +76,8 @@ public class SimpleAuthService implements AuthService {
         tokenRepository.insert(newAccessToken);
         tokenRepository.insert(newRefreshToken);
         // 删除旧的RefreshToken
-        tokenRepository.deleteById(refreshToken);
+        int i = tokenRepository.deleteById(refreshToken);
+        System.out.println(refreshToken + " " + i);
 
         return new ClientTokenVo(newAccessToken, newRefreshToken);
     }
